@@ -1,23 +1,39 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
-  </div>
+  <el-container>
+    <el-header>
+      <el-row type="flex" justify="center">
+          <div class="panel">
+            <span class="header">
+              商家管理系统
+            </span>
+          </div>
+      </el-row>
+    </el-header>
+    <el-main>
+      <router-view/>
+    </el-main>
+  </el-container>
 </template>
 
 <script>
 export default {
-  name: 'App'
-}
+  name: "App"
+};
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+<style scoped>
+.header {
+  font-size: 36px;
+  font-weight: bold;
+  color: #333366;
+}
+.panel {
+  width: 100%;
+  background: #ececec54;
+  border-radius: 5px;
+  padding: 10px 0px;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  box-shadow: inset 0 0 0 1px #ababab;
+  /* box-shadow: 0 0 2px black; */
 }
 </style>
