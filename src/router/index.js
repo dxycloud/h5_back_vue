@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/components/Login'
-import Panel from '@/components/Panel'
+import Panel from '@/components/panel/Index'
 Vue.use(Router)
 
 export default new Router({
@@ -13,7 +13,7 @@ export default new Router({
     },
     {
       path: '/panel',
-      name: 'panle',
+      name: 'panel',
       component: Panel,
     }
   ]

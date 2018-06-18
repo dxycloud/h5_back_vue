@@ -34,6 +34,5 @@ export default {
   padding: 10px 0px;
   text-align: center;
   box-shadow: inset 0 0 0 1px #ababab;
-  /* box-shadow: 0 0 2px black; */
 }
 </style>

@@ -1,0 +1,136 @@
+<template>
+  <div>
+    <el-row style="margin-bottom: 10px;">
+      <el-col :span="8" :offset="8">
+        <img :src="shop.logo_url" alt="" style="width:50px; margin: 0 auto;">
+        <div style="margin: auto;">
+          <span> {{shop.name}} </span>
+        </div>
+      </el-col>
+    </el-row>
+    <!-- 网站地址 -->
+    <el-row :gutter="20 ">
+      <el-col :span="4 ">
+        <div style="height: 50px; line-height: 50px; white-space: nowrap; ">
+          商家网站地址：
+        </div>
+      </el-col>
+      <el-col :span="20 ">
+        <el-input v-model="shop.name " :disabled="true "></el-input>
+      </el-col>
+    </el-row>
+    <!-- 商户描述 -->
+    <el-row :gutter="20 ">
+      <el-col :span="4 ">
+        <div style="height: 50px; line-height: 50px; white-space: nowrap; ">
+          商户描述：
+        </div>
+      </el-col>
+      <el-col :span="20 ">
+        <el-input v-model="shop.name " :disabled="true "></el-input>
+      </el-col>
+    </el-row>
+    <!-- 标签 -->
+    <el-row :gutter="20 ">
+      <el-col :span="4 ">
+        <div style="height: 50px; line-height: 50px; white-space: nowrap; ">
+          标签(用于筛选)：
+        </div>
+      </el-col>
+      <el-col :span="20" style="text-align: left;">
+        <el-tag :key="tag" v-for="tag in dynamicTags" closable :disable-transitions="false" @close="handleClose(tag)">
+          {{tag}}
+        </el-tag>
+        <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" size="small" @keyup.enter.native="handleInputConfirm" @blur="handleInputConfirm">
+        </el-input>
+        <el-button v-else class="button-new-tag" size="small" @click="showInput">+ New Tag</el-button>
+      </el-col>
+    </el-row>
+    <!-- 商户推广特点： -->
+    <el-row :gutter="20 ">
+      <el-col :span="4 ">
+        <div style="height: 50px; line-height: 50px; white-space: nowrap; ">
+          商户推广特点：
+        </div>
+      </el-col>
+      <el-col :span="20">
+        <el-input v-model="shop.name " :disabled="true "></el-input>
+      </el-col>
+    </el-row>
+    <!-- 用户数 -->
+    <el-row :gutter="20 ">
+      <el-col :span="4 ">
+        <div style="height: 50px; line-height: 50px; white-space: nowrap; ">
+          用户数：
+        </div>
+      </el-col>
+      <el-col :span="20" style="text-align: left">
+        <el-input-number v-model="shop.user_n" :disabled="true"></el-input-number>
+      </el-col>
+    </el-row>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "PanelShopInfo",
+  data() {
+    return {
+      dynamicTags: ["标签一", "标签二", "标签三"],
+      inputVisible: false,
+      inputValue: "",
+      shop: {
+        name: "name",
+        logo_url: "https://img3.doubanio.com/icon/u155724326-11.jpg",
+        tags: ["标签一", "标签二", "标签三"],
+        user_n: 100,
+      }
+    };
+  },
+  methods: {
+    handleClose(tag) {
+      this.shop.tags.splice(this.dynamicTags.indexOf(tag), 1);
+    },
+
+    showInput() {
+      this.inputVisible = true;
+      this.$nextTick(_ => {
+        this.$refs.saveTagInput.$refs.input.focus();
+      });
+    },
+
+    handleInputConfirm() {
+      let inputValue = this.inputValue;
+      if (inputValue) {
+        this.shop.tags.push(inputValue);
+      }
+      this.inputVisible = false;
+      this.inputValue = "";
+    }
+  }
+};
+</script>
+
+<style scoped>
+.el-main {
+  /* background-color: #e9eef3; */
+  /* color: #333; */
+  text-align: center;
+  line-height: 160px;
+}
+.el-tag + .el-tag {
+  margin-left: 10px;
+}
+.button-new-tag {
+  margin-left: 10px;
+  height: 32px;
+  line-height: 30px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.input-new-tag {
+  width: 90px;
+  margin-left: 10px;
+  vertical-align: bottom;
+}
+</style>
