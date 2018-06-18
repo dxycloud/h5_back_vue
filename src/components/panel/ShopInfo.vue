@@ -38,12 +38,9 @@
         </div>
       </el-col>
       <el-col :span="20" style="text-align: left;">
-        <el-tag :key="tag" v-for="tag in dynamicTags" closable :disable-transitions="false" @close="handleClose(tag)">
-          {{tag}}
+        <el-tag :key="tag" v-for="tag in dynamicTags" :disable-transitions="false">
+          {{ tag }}
         </el-tag>
-        <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" size="small" @keyup.enter.native="handleInputConfirm" @blur="handleInputConfirm">
-        </el-input>
-        <el-button v-else class="button-new-tag" size="small" @click="showInput">+ New Tag</el-button>
       </el-col>
     </el-row>
     <!-- 商户推广特点： -->
@@ -83,7 +80,7 @@ export default {
         name: "name",
         logo_url: "https://img3.doubanio.com/icon/u155724326-11.jpg",
         tags: ["标签一", "标签二", "标签三"],
-        user_n: 100,
+        user_n: 100
       }
     };
   },
