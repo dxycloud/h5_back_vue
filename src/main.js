@@ -5,7 +5,18 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import App from './App'
 import router from './router'
+import config from './utils/config'
 
+router.beforeEach((to, from, next) => {
+  if(to.path == '/panel' && from.path == '/') {
+    if(!config.token) {
+      router.replace('/', (_) => {
+        console.log('无权访问');
+      })
+    };
+  }
+  next();
+})
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 /* eslint-disable no-new */

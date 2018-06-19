@@ -20,11 +20,12 @@
   </div>
 </template>
 
-
 <script>
 import placeholder from "./EmptyLine.vue";
 import cryto from "../utils/cryto.js";
 import router from "../router/index.js";
+import config from "../utils/config.js";
+import axios from "axios";
 
 export default {
   name: "login",
@@ -38,12 +39,30 @@ export default {
     };
   },
   methods: {
-    login: function(event) {
+    login: async function(event) {
+      let data = this.$data;
       let passwd_hash = cryto(this.$data.passwd);
-      // 跳转到panel界面
-      router.replace("/panel", event => {
-        console.log(event);
+      let response = await axios({
+        method: 'post',
+        url: config.api.user.login, 
+        data: {
+          name: data.name,
+          passwd_hash: passwd_hash
+        }
       });
+      console.log(response);
+      if (response.data.code == 0) {
+        config.token = response.data.data.token;
+        // 跳转到panel界面
+        router.replace("/panel", event => {
+          console.log(config.token);
+        });
+      } else {
+        this.$message({
+          message: "登录失败，请检查用户名和密码",
+          type: "fail"
+        });
+      }
     }
   }
 };
