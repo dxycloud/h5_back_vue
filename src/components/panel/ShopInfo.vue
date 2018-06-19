@@ -16,7 +16,7 @@
         </div>
       </el-col>
       <el-col :span="20 ">
-        <el-input v-model="shop.name " :disabled="true "></el-input>
+        <el-input v-model="shop.url " :disabled="true "></el-input>
       </el-col>
     </el-row>
     <!-- 商户描述 -->
@@ -27,7 +27,7 @@
         </div>
       </el-col>
       <el-col :span="20 ">
-        <el-input v-model="shop.name " :disabled="true "></el-input>
+        <el-input v-model="shop.describe " :disabled="true "></el-input>
       </el-col>
     </el-row>
     <!-- 标签 -->
@@ -38,7 +38,7 @@
         </div>
       </el-col>
       <el-col :span="20" style="text-align: left;">
-        <el-tag :key="tag" v-for="tag in dynamicTags" :disable-transitions="false">
+        <el-tag :key="tag" v-for="tag in shop.tags" :disable-transitions="false">
           {{ tag }}
         </el-tag>
       </el-col>
@@ -51,7 +51,7 @@
         </div>
       </el-col>
       <el-col :span="20">
-        <el-input v-model="shop.name " :disabled="true "></el-input>
+        <el-input v-model="shop.feature " :disabled="true "></el-input>
       </el-col>
     </el-row>
     <!-- 用户数 -->
@@ -73,37 +73,10 @@ export default {
   name: "PanelShopInfo",
   data() {
     return {
-      dynamicTags: ["标签一", "标签二", "标签三"],
-      inputVisible: false,
-      inputValue: "",
-      shop: {
-        name: "name",
-        logo_url: "https://img3.doubanio.com/icon/u155724326-11.jpg",
-        tags: ["标签一", "标签二", "标签三"],
-        user_n: 100
-      }
     };
   },
+  props:['shop'],
   methods: {
-    handleClose(tag) {
-      this.shop.tags.splice(this.dynamicTags.indexOf(tag), 1);
-    },
-
-    showInput() {
-      this.inputVisible = true;
-      this.$nextTick(_ => {
-        this.$refs.saveTagInput.$refs.input.focus();
-      });
-    },
-
-    handleInputConfirm() {
-      let inputValue = this.inputValue;
-      if (inputValue) {
-        this.shop.tags.push(inputValue);
-      }
-      this.inputVisible = false;
-      this.inputValue = "";
-    }
   }
 };
 </script>
@@ -113,7 +86,7 @@ export default {
   /* background-color: #e9eef3; */
   /* color: #333; */
   text-align: center;
-  line-height: 160px;
+  line-height: 150px;
 }
 .el-tag + .el-tag {
   margin-left: 10px;

@@ -1,23 +1,27 @@
 <template>
   <el-container>
     <el-aside width="150px">
-      <panel-aside></panel-aside>
+      <panel-aside :shops="shops" @showInfoEvent="showInfo"></panel-aside>
     </el-aside>
     <el-container>
       <el-header>
         <panel-header></panel-header>
       </el-header>
       <el-main>
-        <panel-shop-info></panel-shop-info>
+        <panel-shop-info :shop="shop_detail">
+        </panel-shop-info>
       </el-main>
     </el-container>
   </el-container>
 </template>
 
 <script>
+import axios from "axios";
+
 import PanelAside from "./Aside.vue";
 import PanelHeader from "./Header.vue";
 import PanelShopInfo from "./ShopInfo.vue";
+import config from "../../utils/config";
 
 export default {
   name: "Panel",
@@ -27,7 +31,57 @@ export default {
     PanelShopInfo
   },
   data() {
-    return {};
+    return {
+      shops: [],
+      default_shop: {
+        name: "商户名",
+        url: "商户注册网址",
+        logo_url: "http://localhost:3000/img/shop.png",
+        tags: [],
+        feature: "商户特征",
+        user_n: "商户数",
+        describe: "商户描述"
+      },
+      shop_detail: {
+        name: "商户名",
+        url: "商户注册网址",
+        logo_url: "http://localhost:3000/img/shop.png",
+        tags: [],
+        feature: "商户特征",
+        user_n: "商户数",
+        describe: "商户描述"
+      }
+    };
+  },
+  mounted: async function() {
+    let res = await axios.get(config.api.shop.fetch);
+    if (res.data.code == 0) {
+      this.$data.shops = res.data.data;
+    } else {
+      this.$message({
+        message: "获取商家列表失败，请稍后再试",
+        type: "fail"
+      });
+    }
+  },
+  methods: {
+    showInfo: function(shop_name) {
+      let founded = false;
+      for(let i = 0; i < this.$data.shops.length; i++) {
+        if (shop_name == this.$data.shops[i].name) {
+          this.$data.shop_detail = this.$data.shops[i];
+          founded = true;
+          break;
+        }
+      }
+      if (!founded) {
+        this.$data.shop_detail = this.$data.default_shop;
+        this.$message({
+          message: "内部错误",
+          type: "fail"
+        });
+      }
+    },
   }
 };
 </script>

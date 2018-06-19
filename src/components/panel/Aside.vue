@@ -4,8 +4,8 @@
       <span class="textHeader">所有商家</span>
     </div>
     <div id="shop_list">
-      <div class="single_shop" v-for="shop in shops" :key="shop.custom_pos">
-        <el-button style="width: 130px;" size="small">
+      <div class="single_shop" v-for="shop in shops" :key="shop.name">
+        <el-button style="width: 130px;" size="small" v-on:click="shopInfo(shop.name)">
           {{ shop.name }}
         </el-button>
       </div>
@@ -18,18 +18,14 @@ export default {
   name: "PanelAside",
   data() {
     return {
-      shops: [
-        {
-          name: "shop1",
-          custom_pos: 1
-        },
-        {
-          name: "shop2",
-          custom_pos: 2
-        }
-      ]
     };
-  }
+  },
+  props: ['shops'],  // 意思是来自父组件的数据
+  methods: {
+    shopInfo: function (shop_name) {
+      this.$emit('showInfoEvent', shop_name);
+    }
+  },
 };
 </script>
 
