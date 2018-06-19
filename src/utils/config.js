@@ -10,7 +10,8 @@ module.exports = {
       delete: base + 'shop/delete',
       add: base + 'shop/add'
     },
-    upload: 'upload'
+    upload: base + 'upload'
   },
-  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwicGFzc3dkX2hhc2giOiIwMTkyMDIzYTdiYmQ3MzI1MDUxNmYwNjlkZjE4YjUwMCIsImlhdCI6MTUyOTM4MTE5OSwiZXhwIjoxNTI5NDI0Mzk5fQ.r-eiG8X_u2sqpFwh9uOGEeWZhmNsxIZeN_FDuXpgS1I'
+  upload_img_path: 'http://localhost:3000/img/',
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwicGFzc3dkX2hhc2giOiIwMTkyMDIzYTdiYmQ3MzI1MDUxNmYwNjlkZjE4YjUwMCIsImlhdCI6MTUyOTQwNzM3NCwiZXhwIjoxNTMxOTk5Mzc0fQ.2tgtUfgWpWQda-IMLM9ZFpsb3PCrMSLEPsD7VkAr9IE'
 }
