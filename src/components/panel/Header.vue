@@ -149,6 +149,7 @@ export default {
             message: "上传成功",
             type: "success"
           });
+          this.$data.shop.logo_url = config.upload_img_path + response.data.data.fileName;
         } else {
           this.$message({
             message: "上传失败",
@@ -163,7 +164,7 @@ export default {
       }
     },
     handleAvatarSuccess(res, file) {
-      this.$data.shop.logo_url = URL.createObjectURL(file.raw);
+      // this.$data.shop.logo_url = URL.createObjectURL(file.raw);
     },
     beforeAvatarUpload(file) {
       const isJPG = file.type === "image/jpeg";
@@ -216,7 +217,7 @@ export default {
             headers: {
               authorization: config.token
             },
-            data: this.$data.shop
+            data: n_shop
           });
           if (response.data.code == 0) {
             this.$message({
