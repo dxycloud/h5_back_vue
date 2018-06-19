@@ -13,5 +13,5 @@ module.exports = {
     upload: base + 'upload'
   },
   upload_img_path: 'http://localhost:3000/img/',
-  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwicGFzc3dkX2hhc2giOiIwMTkyMDIzYTdiYmQ3MzI1MDUxNmYwNjlkZjE4YjUwMCIsImlhdCI6MTUyOTQwNzM3NCwiZXhwIjoxNTMxOTk5Mzc0fQ.2tgtUfgWpWQda-IMLM9ZFpsb3PCrMSLEPsD7VkAr9IE'
+  token: ''
 }
