@@ -25,8 +25,9 @@
             </div>
           </el-col>
           <el-col :span="8" style="text-align: left">
-            <el-upload class="upload-demo" action="https://jsonplaceholder.typicode.com/posts/" :on-preview="handlePreview" :on-remove="handleRemove" :file-list="fileList2" list-type="picture">
-              <el-button size="small" type="primary">点击上传</el-button>
+            <el-upload class="upload_div" action="https://localhost:3000/api/3.0/upload" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
+              <img v-if="imageUrl" :src="imageUrl" class="avatar">
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
           </el-col>
         </el-row>
@@ -103,6 +104,7 @@ export default {
   name: "PanelHeader",
   data() {
     return {
+      imageUrl: "",
       dialogVisible: false,
       inputVisible: false,
       inputValue: "",
@@ -140,11 +142,20 @@ export default {
         })
         .catch(_ => {});
     },
-    handleRemove(file, fileList) {
-      console.log(file, fileList);
+    handleAvatarSuccess(res, file) {
+      this.imageUrl = URL.createObjectURL(file.raw);
     },
-    handlePreview(file) {
-      console.log(file);
+    beforeAvatarUpload(file) {
+      const isJPG = file.type === "image/jpeg";
+      const isLt2M = file.size / 1024 / 1024 < 2;
+
+      if (!isJPG) {
+        this.$message.error("上传头像图片只能是 JPG 格式!");
+      }
+      if (!isLt2M) {
+        this.$message.error("上传头像图片大小不能超过 2MB!");
+      }
+      return isJPG && isLt2M;
     },
     addShop: function(event) {
       this.$data.dialogVisible = true;
@@ -157,4 +168,20 @@ export default {
 </script>
 
 <style scoped>
+.avatar {
+  width: 60px;
+  height: 60px;
+  display: block;
+}
+.upload_div {
+  height: 60px;
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+}
 </style>
