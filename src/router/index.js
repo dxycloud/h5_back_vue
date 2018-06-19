@@ -5,6 +5,7 @@ import Panel from '@/components/panel/Index'
 Vue.use(Router)
 
 export default new Router({
+  base: '/admin/',
   routes: [
     {
       path: '/',
