@@ -5,7 +5,7 @@
       <!-- <el-button plain size="mini">修改</el-button> -->
       <el-button type="danger" plain size="mini" @click="deleteShop">删除</el-button>
     </div>
-    <el-dialog title="添加商户" :visible.sync="dialogVisible" width="70%" :before-close="handleDialogClose">
+    <el-dialog title="添加商户" :visible.sync="dialogVisible" width="80%" :before-close="handleDialogClose">
       <div>
         <!-- 商户名 和 商户logo -->
         <el-row :gutter="20">
@@ -15,7 +15,7 @@
               商户名：
             </div>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="4">
             <el-input v-model="shop.name"></el-input>
           </el-col>
           <!-- 头像 -->
@@ -24,11 +24,23 @@
               上传商户头像：
             </div>
           </el-col>
-          <el-col :span="8" style="text-align: left">
+          <el-col :span="4" style="text-align: left">
             <el-upload class="upload_div" action="" :http-request="uploadAvatar" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
               <img v-if="shop.logo_url" :src="shop.logo_url" class="avatar">
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
+          </el-col>
+          <!-- feature -->
+          <el-col :span="4">
+            <div style="height: 60px; line-height: 60px; white-space: nowrap; ">
+              商户推广特点：
+            </div>
+          </el-col>
+          <el-col :span="4">
+            <el-select v-model="shop.feature" placeholder="请选择">
+              <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+              </el-option>
+            </el-select>
           </el-col>
         </el-row>
         <!-- 网站地址 -->
@@ -53,6 +65,35 @@
             <el-input v-model="shop.describe"></el-input>
           </el-col>
         </el-row>
+        <!-- 用户数和贷款额度 -->
+        <el-row :gutter="20">
+          <!-- 用户数 -->
+          <el-col :span="4 ">
+            <div style="height: 60px; line-height: 60px; white-space: nowrap; ">
+              用户数：
+            </div>
+          </el-col>
+          <el-col :span="4" style="text-align: left">
+            <el-input-number size="small" v-model="shop.user_n"></el-input-number>
+          </el-col>
+          <!-- 额度 -->
+          <el-col :span="4">
+            <div style="height: 60px; line-height: 60px; white-space: nowrap; ">
+              额度：
+            </div>
+          </el-col>
+          <el-col :span="4">
+            <el-input-number size="small" v-model="shop.loan_range[0]"></el-input-number>
+          </el-col>
+          <el-col :span="1">
+            <div style="height: 60px; line-height: 60px; white-space: nowrap; ">
+              到
+            </div>
+          </el-col>
+          <el-col :span="4">
+            <el-input-number size="small" v-model="shop.loan_range[1]"></el-input-number>
+          </el-col>
+        </el-row>
         <!-- 标签 -->
         <el-row :gutter="20">
           <el-col :span="4 ">
@@ -67,26 +108,6 @@
             <el-input class="input-new-tag" v-if="tagInputVisible" v-model="tagInputValue" ref="saveTagInput" size="small" @keyup.enter.native="handleTagInputConfirm" @blur="handleTagInputConfirm">
             </el-input>
             <el-button v-else class="button-new-tag" size="small" @click="showTagInput">+ New Tag</el-button>
-          </el-col>
-        </el-row>
-        <!-- 用户数和feature -->
-        <el-row :gutter="20">
-          <!-- 用户数 -->
-          <el-col :span="4 ">
-            <div style="height: 60px; line-height: 60px; white-space: nowrap; ">
-              用户数：
-            </div>
-          </el-col>
-          <el-col :span="8" style="text-align: left">
-            <el-input-number v-model="shop.user_n"></el-input-number>
-          </el-col>
-          <el-col :span="4">
-            <div style="height: 60px; line-height: 60px; white-space: nowrap; ">
-              商户推广特点：
-            </div>
-          </el-col>
-          <el-col :span="8">
-            <el-input v-model="shop.feature"></el-input>
           </el-col>
         </el-row>
       </div>
@@ -108,6 +129,16 @@ export default {
   props: ["selectedShopName"],
   data() {
     return {
+      options: [
+        {
+          value: "人气必选",
+          label: "人气必选"
+        },
+        {
+          value: "不查征信",
+          label: "不查征信"
+        }
+      ],
       dialogVisible: false,
       tagInputVisible: false,
       tagInputValue: "",
@@ -118,7 +149,8 @@ export default {
       //   tags: ["test"],
       //   user_n: 2,
       //   describe: "test",
-      //   feature: "test"
+      //   feature: "",
+      //   loan_range: [0, 10]
       // }
       shop: {
         name: "",
@@ -127,7 +159,18 @@ export default {
         tags: [],
         user_n: 0,
         describe: "",
-        feature: ""
+        feature: "",
+        loan_range: [0, 10]
+      },
+      clear_shop: {
+        name: "",
+        url: "",
+        logo_url: "",
+        tags: [],
+        user_n: 0,
+        describe: "",
+        feature: "",
+        loan_range: [0, 10]
       }
     };
   },
@@ -149,7 +192,8 @@ export default {
             message: "上传成功",
             type: "success"
           });
-          this.$data.shop.logo_url = config.upload_img_path + response.data.data.fileName;
+          this.$data.shop.logo_url =
+            config.upload_img_path + response.data.data.fileName;
         } else {
           this.$message({
             message: "上传失败",
@@ -224,6 +268,7 @@ export default {
               message: "添加成功",
               type: "success"
             });
+            this.$data.shop = this.$data.clear_shop;
             this.$emit("updateShopEvent", false);
             this.$data.dialogVisible = false;
           } else {

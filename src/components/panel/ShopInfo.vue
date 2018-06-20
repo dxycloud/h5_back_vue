@@ -44,16 +44,34 @@
       </el-col>
     </el-row>
     <!-- 商户推广特点： -->
-    <el-row :gutter="20 ">
-      <el-col :span="4 ">
+    <el-row :gutter="20">
+      <el-col :span="4">
         <div style="height: 50px; line-height: 50px; white-space: nowrap; ">
           商户推广特点：
         </div>
       </el-col>
-      <el-col :span="20">
-        <el-input v-model="shop.feature " :disabled="true "></el-input>
+      <el-col :span="4">
+        <el-select v-model="shop.feature" placeholder="请选择" :disabled="true">
+        </el-select>
+      </el-col>
+      <el-col :span="4">
+        <div style="height: 50px; line-height: 50px; white-space: nowrap; ">
+          额度：
+        </div>
+      </el-col>
+      <el-col :span="4">
+        <el-input-number :disabled="true" v-model="shop.loan_range[0]"></el-input-number>
+      </el-col>
+      <el-col :span="1">
+        <div style="height: 40px; line-height: 40px; white-space: nowrap; ">
+          到
+        </div>
+      </el-col>
+      <el-col :span="4">
+        <el-input-number :disabled="true" v-model="shop.loan_range[1]"></el-input-number>
       </el-col>
     </el-row>
+
     <!-- 用户数 -->
     <el-row :gutter="20 ">
       <el-col :span="4 ">
@@ -73,11 +91,12 @@ export default {
   name: "PanelShopInfo",
   data() {
     return {
+      loan_up: 1,
+      loan_down: 0
     };
   },
-  props:['shop'],
-  methods: {
-  }
+  props: ["shop"],
+  methods: {}
 };
 </script>
 

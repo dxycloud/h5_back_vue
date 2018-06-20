@@ -40,7 +40,8 @@ export default {
         tags: [],
         feature: "商户特征",
         user_n: "商户数",
-        describe: "商户描述"
+        describe: "商户描述",
+        loan_range: [0, 1]
       },
       shop_detail: {
         name: "商户名",
@@ -49,7 +50,8 @@ export default {
         tags: [],
         feature: "商户特征",
         user_n: "商户数",
-        describe: "商户描述"
+        describe: "商户描述",
+        loan_range: [0, 1]
       },
       selected_shop_name: ""
     };

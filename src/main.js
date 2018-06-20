@@ -11,10 +11,7 @@ router.beforeEach((to, from, next) => {
   if(to.path == '/panel' && from.path == '/') {
     if(!config.token) {
       router.replace('/', (_) => {
-        this.$message({
-          message: "无权访问",
-          type: 'fail'
-        })
+        alert('无权访问');
       })
     };
   }
