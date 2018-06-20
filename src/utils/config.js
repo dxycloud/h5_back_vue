@@ -1,4 +1,4 @@
-const base = 'http://localhost:3000/api/1.0/';
+const base = 'http://118.24.177.55:3000/api/1.0/';
 
 module.exports = {
   api: {
@@ -12,6 +12,6 @@ module.exports = {
     },
     upload: base + 'upload'
   },
-  upload_img_path: 'http://localhost:3000/img/',
+  upload_img_path: 'http://118.24.177.55:3000/img/',
   token: ''
 }
