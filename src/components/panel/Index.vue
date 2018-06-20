@@ -36,7 +36,7 @@ export default {
       default_shop: {
         name: "商户名",
         url: "商户注册网址",
-        logo_url: "http://localhost:3000/img/shop.png",
+        logo_url: config.upload_img_path + "shop.png",
         tags: [],
         feature: "商户特征",
         user_n: "商户数",
@@ -45,7 +45,7 @@ export default {
       shop_detail: {
         name: "商户名",
         url: "商户注册网址",
-        logo_url: "http://localhost:3000/img/shop.png",
+        logo_url: config.upload_img_path + "shop.png",
         tags: [],
         feature: "商户特征",
         user_n: "商户数",
