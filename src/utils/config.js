@@ -1,4 +1,4 @@
-const base = 'https://www.serious-playing.com.cn:3000/api/1.0/';
+const base = 'https://serious-playing.com.cn:3000/api/1.0/';
 
 module.exports = {
   api: {
@@ -12,6 +12,6 @@ module.exports = {
     },
     upload: base + 'upload'
   },
-  upload_img_path: 'https://www.serious-playing.com.cn:3000/img/',
+  upload_img_path: 'https://serious-playing.com.cn:3000/img/',
   token: ''
 }
