@@ -59,7 +59,9 @@ export default {
   mounted: async function() {
     let res = await axios.get(config.api.shop.fetch);
     if (res.data.code == 0) {
-      this.$data.shops = res.data.data;
+      this.$data.shops = res.data.data.sort((shopa, shopb) => {
+        return shopb.weight - shopa.weight;
+      });
     } else {
       this.$message({
         message: "获取商家列表失败，请稍后再试",
@@ -94,7 +96,9 @@ export default {
       }
       let res = await axios.get(config.api.shop.fetch);
       if (res.data.code == 0) {
-        this.$data.shops = res.data.data;
+        this.$data.shops = res.data.data.sort((shopa, shopb) => {
+          return shopb.weight - shopa.weight;
+        });
       } else {
         this.$message({
           message: "获取商家列表失败，请稍后再试",

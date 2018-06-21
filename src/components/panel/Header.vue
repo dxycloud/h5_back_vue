@@ -94,20 +94,30 @@
             <el-input-number size="small" v-model="shop.loan_range[1]"></el-input-number>
           </el-col>
         </el-row>
-        <!-- 标签 -->
+        <!-- 标签和权重 -->
         <el-row :gutter="20">
+          <!-- 标签 -->
           <el-col :span="4 ">
             <div style="height: 60px; line-height: 60px; white-space: nowrap; ">
               标签(用于筛选)：
             </div>
           </el-col>
-          <el-col :span="20" style="text-align: left;">
+          <el-col :span="8" style="text-align: left;">
             <el-tag :key="tag" v-for="tag in shop.tags" closable :disable-transitions="false" @close="handleTagClose(tag)">
               {{tag}}
             </el-tag>
             <el-input class="input-new-tag" v-if="tagInputVisible" v-model="tagInputValue" ref="saveTagInput" size="small" @keyup.enter.native="handleTagInputConfirm" @blur="handleTagInputConfirm">
             </el-input>
             <el-button v-else class="button-new-tag" size="small" @click="showTagInput">+ New Tag</el-button>
+          </el-col>
+          <!-- 权重 -->
+          <el-col :span="4">
+            <div style="height: 50px; line-height: 50px; white-space: nowrap; ">
+              权重：
+            </div>
+          </el-col>
+          <el-col :span="8" style="text-align: left">
+            <el-input-number v-model="shop.weight"></el-input-number>
           </el-col>
         </el-row>
       </div>
@@ -142,26 +152,28 @@ export default {
       dialogVisible: false,
       tagInputVisible: false,
       tagInputValue: "",
+      shop: {
+        name: "test",
+        url: "test.com",
+        logo_url: "test",
+        tags: ["test"],
+        user_n: 2,
+        describe: "test",
+        feature: "",
+        loan_range: [0, 10],
+        weight: 0,
+      },
       // shop: {
-      //   name: "test",
-      //   url: "test.com",
-      //   logo_url: "test",
-      //   tags: ["test"],
-      //   user_n: 2,
-      //   describe: "test",
+      //   name: "",
+      //   url: "",
+      //   logo_url: "",
+      //   tags: [],
+      //   user_n: 0,
+      //   describe: "",
       //   feature: "",
       //   loan_range: [0, 10]
-      // }
-      shop: {
-        name: "",
-        url: "",
-        logo_url: "",
-        tags: [],
-        user_n: 0,
-        describe: "",
-        feature: "",
-        loan_range: [0, 10]
-      },
+      //   weight: 0,
+      // },
       clear_shop: {
         name: "",
         url: "",
@@ -170,7 +182,8 @@ export default {
         user_n: 0,
         describe: "",
         feature: "",
-        loan_range: [0, 10]
+        loan_range: [0, 10],
+        weight: 0,
       }
     };
   },

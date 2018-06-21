@@ -72,15 +72,25 @@
       </el-col>
     </el-row>
 
-    <!-- 用户数 -->
+    <!-- 用户数和权重 -->
     <el-row :gutter="20 ">
-      <el-col :span="4 ">
+      <!-- 用户数 -->
+      <el-col :span="4">
         <div style="height: 50px; line-height: 50px; white-space: nowrap; ">
           用户数：
         </div>
       </el-col>
-      <el-col :span="20" style="text-align: left">
+      <el-col :span="4" style="text-align: left">
         <el-input-number v-model="shop.user_n" :disabled="true"></el-input-number>
+      </el-col>
+      <!-- 权重 -->
+      <el-col :span="4">
+        <div style="height: 50px; line-height: 50px; white-space: nowrap; ">
+          权重：
+        </div>
+      </el-col>
+      <el-col :span="4" style="text-align: left">
+        <el-input-number v-model="shop.weight" :disabled="true"></el-input-number>
       </el-col>
     </el-row>
   </div>
