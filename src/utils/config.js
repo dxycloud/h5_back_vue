@@ -8,7 +8,8 @@ module.exports = {
     shop: {
       fetch: base + 'shop/findAll',
       delete: base + 'shop/delete',
-      add: base + 'shop/add'
+      add: base + 'shop/add',
+      modify: base + 'shop/modify',
     },
     upload: base + 'upload'
   },

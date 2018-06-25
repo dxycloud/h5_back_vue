@@ -1,8 +1,9 @@
 <template>
   <div>
     <div style="text-align: right; font-size: 12px;">
+      <el-button plain size="mini" @click="updateShopList">更新</el-button>
+      <el-button plain size="mini" @click="modifyShop">修改</el-button>
       <el-button plain size="mini" v-on:click="dialogVisible = true">添加</el-button>
-      <!-- <el-button plain size="mini">修改</el-button> -->
       <el-button type="danger" plain size="mini" @click="deleteShop">删除</el-button>
     </div>
     <el-dialog title="添加商户" :visible.sync="dialogVisible" width="80%" :before-close="handleDialogClose">
@@ -147,34 +148,27 @@ export default {
         {
           value: "不查征信",
           label: "不查征信"
+        },
+        {
+          value: "",
+          label: "无"
         }
       ],
       dialogVisible: false,
       tagInputVisible: false,
       tagInputValue: "",
-      shop: {
-        name: "test",
-        url: "test.com",
-        logo_url: "test",
-        tags: ["test"],
-        user_n: 2,
-        describe: "test",
-        feature: "",
-        loan_range: [0, 10],
-        weight: 0,
-      },
       // shop: {
-      //   name: "",
-      //   url: "",
-      //   logo_url: "",
-      //   tags: [],
-      //   user_n: 0,
-      //   describe: "",
+      //   name: "test",
+      //   url: "test.com",
+      //   logo_url: "test",
+      //   tags: ["test"],
+      //   user_n: 2,
+      //   describe: "test",
       //   feature: "",
-      //   loan_range: [0, 10]
-      //   weight: 0,
+      //   loan_range: [0, 10],
+      //   weight: 0
       // },
-      clear_shop: {
+      shop: {
         name: "",
         url: "",
         logo_url: "",
@@ -184,6 +178,17 @@ export default {
         feature: "",
         loan_range: [0, 10],
         weight: 0,
+      },
+      clear_shop: {
+        name: "",
+        url: "",
+        logo_url: "",
+        tags: [],
+        user_n: 0,
+        describe: "",
+        feature: "",
+        loan_range: [0, 10],
+        weight: 0
       }
     };
   },
@@ -264,6 +269,13 @@ export default {
         .catch(_ => {});
     },
 
+    modifyShop: async function(event) {
+      this.$emit("modifyShopEvent")
+    },
+    updateShopList: async function(event) {
+      // delete代表是否删除
+      this.$emit("updateShopListEvent", true);
+    },
     addShop: async function(event) {
       try {
         let n_shop = this.$data.shop;
@@ -282,7 +294,7 @@ export default {
               type: "success"
             });
             this.$data.shop = this.$data.clear_shop;
-            this.$emit("updateShopEvent", false);
+            this.$emit("updateShopListEvent", false);
             this.$data.dialogVisible = false;
           } else {
             this.$message({
@@ -322,7 +334,7 @@ export default {
               message: "删除成功",
               type: "success"
             });
-            this.$emit("updateShopEvent", true);
+            this.$emit("updateShopListEvent", true);
           } else {
             this.$message({
               message: "失败 " + response.data.message,
